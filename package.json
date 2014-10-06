@@ -2,9 +2,8 @@
   "name": "i8",
   "description": "Basic express wrapper. More than express, it's a freeway. It's a tribute to San Diego, CA",
   "author": "Aron Rodrigues <aronrodrigues@gmail.com>",
-  "version": "1.0.0-SNAPSHOT",
+  "version": "1.0.1",
   "public": true,
-  "readmeFilename": "README.md",
   "main": "main/Server.js",
   "scripts": {
     "test": "mocha -R spec --recursive"
@@ -20,5 +19,22 @@
     "should": ">= 0.0.1",
     "chai": "~1.9.1",
     "sinon": "~1.10.3"
-  }
+  },
+  "directories": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aronrodrigues/i8.git"
+  },
+  "keywords": [
+    "express",
+    "server",
+    "wrapper"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/aronrodrigues/i8/issues"
+  },
+  "homepage": "https://github.com/aronrodrigues/i8"
 }
