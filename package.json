@@ -1,0 +1,24 @@
+{
+  "name": "i8",
+  "description": "Basic express wrapper. More than express, it's a freeway. It's a tribute to San Diego, CA",
+  "author": "Aron Rodrigues <aronrodrigues@gmail.com>",
+  "version": "1.0.0-SNAPSHOT",
+  "public": true,
+  "readmeFilename": "README.md",
+  "main": "main/Server.js",
+  "scripts": {
+    "test": "mocha -R spec --recursive"
+  },
+  "dependencies": {
+    "express": "4.0.x",
+    "body-parser": "*",
+    "morgan": "~1.3.1",
+    "bunyan": "~1.0.1"
+  },
+  "devDependencies": {
+    "mocha": "*",
+    "should": ">= 0.0.1",
+    "chai": "~1.9.1",
+    "sinon": "~1.10.3"
+  }
+}
