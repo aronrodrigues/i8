@@ -1,2 +1,2 @@
-exports.Server = require('./main/Server');
-exports.createRouter = require('./main/createRouter');
+exports.Server = require('./Server');
+exports.createRouter = require('./createRouter');

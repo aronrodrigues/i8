@@ -54,7 +54,7 @@
     /**
      * Starts the server
      */
-    this.startup = function () {
+    this.startup = function (callback) {
       if (this._started) throw Error('alreadyStarted');
       this._logger.info('Starting server');
       this._app.all('*', function (req, res, next) {
@@ -72,6 +72,8 @@
       this._listenHttps(this._config.httpsPort, this._config.host);
 
       this._started = true;
+      
+      if (callback) callback();
     }
 
     /**
@@ -111,7 +113,7 @@
      */
     this._errorHandler = function (err, req, res, next) {
       if (!res.statusCode || res.statusCode == 200) res.status(500);
-      this._logger.error({
+        logger.error({
         url: req.url,
         trace: err.stack
       }, err.message);

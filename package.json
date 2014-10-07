@@ -2,10 +2,11 @@
   "name": "i8",
   "description": "Basic express wrapper. More than express, it's a freeway. It's a tribute to San Diego, CA",
   "author": "Aron Rodrigues <aronrodrigues@gmail.com>",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "public": true,
   "main": "main/index.js",
   "scripts": {
+    "debug": "node-theseus main/server.js",
     "test": "mocha -R spec --recursive"
   },
   "dependencies": {
