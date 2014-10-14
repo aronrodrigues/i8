@@ -394,6 +394,15 @@
         });
       });
     });
+     describe('server.getConfig', function () {
+      describe('simplecall', function (done) {
+        it('returns server config', function (done) {
+          var config = server.getConfig();
+          expect(server._config).to.be.deep.equal(config);
+          done();
+        });
+      });
+     });
 
   });
 })();

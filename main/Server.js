@@ -185,6 +185,10 @@
       this._logger.info('Setting errorCallback');
       this._errorHandler = errorHandler;
     }
+    
+    this.getConfig = function() {
+      return this._config;
+    }
 
     _construct(this);
     
