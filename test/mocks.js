@@ -11,6 +11,7 @@
     logger.error = sinon.spy();
     logger.debug = sinon.spy();
     logger.child = sinon.stub().returns(logger);
+    logger.logLevel = sinon.spy();
     return logger;
   }
   

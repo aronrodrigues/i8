@@ -9,6 +9,7 @@
   describe('index', function () {
     it('verifies that all functions exists', function (done) {
       expect(typeof index.Server).to.be.equals('function');
+       expect(typeof index.createServer).to.be.equals('function');
       expect(typeof index.createRouter).to.be.equals('function');
       done();
     });
