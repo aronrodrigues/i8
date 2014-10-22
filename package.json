@@ -7,8 +7,7 @@
   "main": "main/index.js",
   "scripts": {
     "debug": "node-theseus main/server.js",
-    "test": "mocha -R spec --recursive",
-    "serverTest": "node test/serverTest.js"
+    "test": "mocha -R spec --recursive"
   },
   "dependencies": {
     "express": "~4.9.7",

@@ -2,7 +2,7 @@ var bunyan = require('bunyan');
 var i8 = require('../main/index.js');
 console.dir(i8);
 
-var logger = bunyan.createLogger({ name: 'serverTest'});
+var logger = i8.createLogger({ name: 'serverTest'});
 var server = i8.createServer(logger);
                                   
 var router = i8.createRouter();
