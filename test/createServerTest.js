@@ -199,7 +199,7 @@
           req.url = '/api/test'
           server._errorHandler(err, req, res, next);
           expect(res.status.getCall(0).args[0]).to.be.equal(500);
-          expect(res.jsonp.getCall(0).args[0]).to.be.equal(err.message);
+          expect(res.jsonp.getCall(0).args[0].message).to.be.equal(err.message);
           expect(logger.error.called).to.be.true;
           expect(server._errorCallback).to.be.null;
           expect(res.send.called).to.be.false;
@@ -213,7 +213,7 @@
           res.statusCode = null;
           server._errorHandler(err, req, res, next);
           expect(res.status.getCall(0).args[0]).to.be.equal(500);
-          expect(res.jsonp.getCall(0).args[0]).to.be.equal(err.message);
+          expect(res.jsonp.getCall(0).args[0].message).to.be.equal(err.message);
           expect(logger.error.called).to.be.true;
           expect(server._errorCallback).to.be.null;
           expect(res.send.called).to.be.false;
@@ -229,7 +229,7 @@
           server.registerErrorCallback(errorCallbackSpy);
           server._errorHandler(err, req, res, next);
           expect(res.status.called).to.be.false;
-          expect(res.jsonp.getCall(0).args[0]).to.be.equal(err.message);
+          expect(res.jsonp.getCall(0).args[0].message).to.be.equal(err.message);
           expect(logger.error.called).to.be.true;
           expect(errorCallbackSpy.called).to.be.false;
           expect(res.send.called).to.be.false;

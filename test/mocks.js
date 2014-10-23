@@ -25,8 +25,8 @@
     var res = {};
     res.statusCode = 200;
     res.jsonp = sinon.spy();
-    res.send = sinon.spy();
-    res.status = sinon.spy();
+    res.send = sinon.stub().returns(res);
+    res.status = sinon.stub().returns(res);
     return res;
   }
   

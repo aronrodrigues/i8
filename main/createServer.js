@@ -124,7 +124,7 @@
         trace: err.stack
       }, err.message);
       if (req.url.indexOf('/api') == 0) {
-        return res.jsonp(err.message);
+        return res.jsonp({message: err.message});
       } else {
         if (server._errorCallback) {
           return server._errorCallback(err, req, res, next);
@@ -192,6 +192,9 @@
       server._errorHandler = errorHandler;
     }
 
+    /**
+     * Return the parameters
+     */
     server.getConfig = function () {
       return server._config;
     }
