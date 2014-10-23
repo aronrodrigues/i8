@@ -51,8 +51,7 @@
         });
 
         var config = configLoader(logger);
-        expect(config).to.be.not.empty;
-        expect(config.dbUrl).to.be.equal("mongo://localhost/dev");
+        expect(config).to.be.deep.equal({"dbUrl": "mongo://localhost/dev"});
         done();
       });
     });
@@ -69,8 +68,7 @@
         });
 
         var config = configLoader(logger);
-        expect(config).to.be.not.empty;
-        expect(config.dbUrl).to.be.equal("mongo://localhost/prd");
+        expect(config).to.be.deep.equal({"dbUrl": "mongo://localhost/prd"});
         done();
       });
     });
@@ -79,6 +77,19 @@
       it('should throw error', function (done) {
         process.env.NODE_ENV = "none";
         expect(configLoader).to.throw(Error);
+        done();
+      });
+    });
+    
+    describe('Bug #???: File not exists and NODE_ENV is not set.', function () {
+      it('should throw error', function (done) {
+        delete process.env.NODE_ENV;
+        sandbox.stub(fs, 'existsSync', function (filename) {
+          return false;
+        });
+        var config = configLoader(logger);
+        expect(process.env.NODE_ENV).to.be.equal('development');
+        expect(config).to.be.deep.equal({});
         done();
       });
     });

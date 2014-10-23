@@ -6,8 +6,7 @@
   "public": true,
   "main": "main/index.js",
   "scripts": {
-    "debug": "node-theseus main/server.js",
-    "test": "mocha -R spec --recursive"
+    "test": "mocha"
   },
   "dependencies": {
     "express": "~4.9.7",
