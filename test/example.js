@@ -56,7 +56,7 @@ router.get('/hello', function (req, res, next) {
   res.send('Hello world!!');
 });
 
-server.use('/router', router)
+server.use('/router', router);
 server.use('/', i8.handlerToRouter(handler));
 
 server.startup();

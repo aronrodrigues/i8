@@ -23,7 +23,7 @@ The i8 server provides the following functions:
 * env.json configuration (server.getConfig)
 * Default and extensible error handling
 * 404 handling
-* server.use() & server.static()
+* server.use(), server.static() and i8.createRouter()
 
 ###env.json configuration
 Given an env.json file
@@ -116,8 +116,25 @@ server.register404Callback(function(req, res, next) {
 server.startup();
 ```
 
-### server.use() & server.static()
+### server.use(), server.static() and i8.createRouter()
 Those are wrappers to remove the need of the express dependency on your project.
+
+```javascript
+var i8 = require('i8');
+var logger = require('bunyan').createLogger({ name: 'serverTest'});
+var server = i8.Server(logger);
+        
+server.static('/static', './web');
+
+var router = i8.createRouter();
+router.get('/hello', function (req, res, next) {
+  res.send('Hello world!!');
+});
+
+server.use('/router', router);
+server.startup();
+
+```
 
 ## API
 
@@ -162,6 +179,9 @@ Returns a function handle(err, data)
 * 204 (noData) 
 * next(err)
 
+## i8.createRouter()
+Returns an express router.
+
 ## handlerToRouter
 Transforms a handler object into an express router.
 ```javascript
@@ -172,7 +192,7 @@ var handler = {
     }
   }]
 }
+```
 
 ### handler.getRoute = function (method, path) {
 Returns the function (improve testability)
-```
