@@ -22,6 +22,7 @@
       expect(typeof index.handlerToRouter).to.be.equals('function');
       expect(typeof index.jsonResult).to.be.equals('function');
       expect(typeof index.configLoader).to.be.equals('function');
+      expect(typeof index.configLoader).to.be.equals('createRouter');
       done();
     });
   });

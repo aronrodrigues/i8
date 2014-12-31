@@ -23,6 +23,7 @@ var handler = {
         '<li><a href="api/data">api/data</a></li>' +
         '<li><a href="api/noData">api/noData (204)</a></li>' +
         '<li><a href="static/example.js">static/example.js</a></li>' +
+        '<li><a href="router/hello">router/hello</a></li>' +
         '<li><a href="error">error</a></li>' +
         '<li><a href="api/error">api/error</a></li>' +
         '</ul>');
@@ -50,6 +51,12 @@ var handler = {
   }]
 };
 
-server.use(i8.handlerToRouter(handler), 'TestRouter');
+var router = i8.createRouter();
+router.get('/hello', function (req, res, next) {
+  res.send('Hello world!!');
+});
+
+server.use('/router', router)
+server.use('/', i8.handlerToRouter(handler));
 
 server.startup();
