@@ -1,5 +1,4 @@
-exports.Server = require('./createServer');
-exports.createServer = require('./createServer');
-exports.createRouter = require('./createRouter');
-exports.createLogger = require('./createLogger');
-exports.security = require('./security');
+exports.Server = require('./Server');
+exports.configLoader = require('./configLoader');
+exports.handlerToRouter = require('./handlerToRouter');
+exports.jsonResult = require('./jsonResult');

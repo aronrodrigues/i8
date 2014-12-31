@@ -1,56 +1,55 @@
 var i8 = require('../main/index.js');
-var logger = i8.createLogger({
-  name: 'serverTest'
-});
-var server = i8.createServer(logger);
-
-var router = i8.createRouter();
-router.get('/', function (req, res, next) {
-  res.send('<ul>' +
-    '<li><a href="404.html">404</a></li>' +
-    '<li><a href="api/404">api/404</a></li>' +
-    '<li><a href="api/appInfo">api/appInfo</a></li>' +
-    '<li><a href="error">error</a></li>' +
-    '<li><a href="api/error">api/error</a></li>' +
-    '<li><a href="api/secure?token=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiZGF0ZSI6MTQxMzk5ODg4OTM0Mn0.a10pCGZ1cSiNpKzTSXntI1HPo5MZbNQmWzF4joKRuus">api/secure?token</a></li>' +
-    '<li><a href="api/secure">api/secure</a></li>' +
-    '<li><a href="api/issueToken">api/issueToken</a></li>' +
-    '</ul>');
-});
+var bunyan = require('bunyan');
+var logger = bunyan.createLogger({name: 'testApp'});
+var server = new i8.Server(logger);
 
 server.register404Callback(function (req, res, next) {
-  res.send('You requested the url ' + req.url + ' but it does not exist on our servers.');
+  res.send('You requested the url ' + req.url + ' but it does not exist on our servers. (It is OK! :D)');
 });
 
 server.registerErrorCallback(function (err, req, res, next) {
-  res.send('The error ' + err.message + ' ocurred and your request cannot be completed.');
+  res.send('The error ' + err.message + ' ocurred and your request cannot be completed. (It is OK! :D)');
 });
 
-router.get('/error', function (req, res, next) {
-  throw Error('TestError');
-})
+server.static('/static', './test');
 
-router.get('/api/error', function (req, res, next) {
-  throw Error('ApiTestError');
-})
+var handler = {
+  get: [{
+    path: '/',
+    action: function (req, res, next) {
+      res.send('<ul>' +
+        '<li><a href="404.html">404</a></li>' +
+        '<li><a href="api/404">api/404</a></li>' +
+        '<li><a href="api/data">api/data</a></li>' +
+        '<li><a href="api/noData">api/noData (204)</a></li>' +
+        '<li><a href="static/example.js">static/example.js</a></li>' +
+        '<li><a href="error">error</a></li>' +
+        '<li><a href="api/error">api/error</a></li>' +
+        '</ul>');
+    }
+  }, {
+    path: '/api/data',
+    action: function (req, res, next) {
+      i8.jsonResult(res, next)(null, {testData: 'Hello World'});
+    }
+  }, {
+    path: '/api/noData',
+    action: function (req, res, next) {
+      i8.jsonResult(res, next)(null);
+    }
+  }, {
+    path: '/error',
+    action: function (req, res, next) {
+      throw Error('TestError');
+    }
+  }, {
+    path: '/api/error',
+    action: function (req, res, next) {
+      throw Error('ApiTestError');
+    }
+  }]
+};
 
-var security = i8.security;
-security.setup(logger, 'TOKEN_SALT', function (obj, done) {
-  done(obj);
-});
-
-router.get('/api/secure', security.isAuth, function (req, res, next) {
-  res.send('user: ' + req.user.username + '<br /> date: ' + req.user.date);
-});
-
-router.get('/api/issueToken', function (req, res, next) {
-  res.send('<p>token ' + security.issueToken({
-      username: "testUser",
-      date: 1413998889342
-    }) + '</p>' +
-    '<p>token eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6InRlc3RVc2VyIiwiZGF0ZSI6MTQxMzk5ODg4OTM0Mn0.a10pCGZ1cSiNpKzTSXntI1HPo5MZbNQmWzF4joKRuus</p>');
-});
-
-server.use(router, 'TestRouter');
+server.use(i8.handlerToRouter(handler), 'TestRouter');
 
 server.startup();

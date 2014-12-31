@@ -1,3 +1,5 @@
+--reporter spec
 --reporter progress
+--reporter dot
 --recursive
 ./test/**/*Test.js

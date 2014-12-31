@@ -58,7 +58,6 @@
 
     describe('With file, with NODE_ENV="production"', function () {
       it('should return production config', function (done) {
-
         process.env.NODE_ENV = "production";
         sandbox.stub(fs, 'existsSync', function (filename) {
           return true;
@@ -75,8 +74,14 @@
 
     describe('With file, with NODE_ENV="none"', function () {
       it('should throw error', function (done) {
+        sandbox.stub(fs, 'existsSync', function (filename) {
+          return true;
+        });
+        sandbox.stub(fs, 'readFileSync', function (filename, encoding) {
+          return fakeData;
+        });
         process.env.NODE_ENV = "none";
-        expect(configLoader).to.throw(Error);
+        expect(function () { configLoader(logger) }).to.throw('cantLoadConfig');
         done();
       });
     });

@@ -29,7 +29,6 @@
       logger.info('Loading env.json file');
       var data = fs.readFileSync(filename, 'utf8');
       var env = JSON.parse(data);
-
       config = env[process.env.NODE_ENV];
       if (config) {
         logger.info({
@@ -39,7 +38,7 @@
           'Configuration loaded');
         return config;
       } else {
-        var error = Error('cantLoadConfig');
+        var error = new Error('cantLoadConfig');
         logger.error(error, 'Cannot load config in env.json for %s',
           process.env.NODE_ENV);
         throw error;
@@ -48,5 +47,5 @@
       logger.info('File env.json not found. Using default configuration.');
       return config;
     }
-  }
+  };
 })();
