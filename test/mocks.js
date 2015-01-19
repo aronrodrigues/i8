@@ -17,12 +17,16 @@
     return logger;
   }
   
-  exports.req = function () {
+  exports.req = function (sandbox) {
     var req = {};
     req.url = null;
     req.headers = [];
     req.params = {};
     req.body = {};
+    req.i8 = {
+      config: {},
+      logger: exports.logger(sandbox)
+    }
     return req; 
   }
   

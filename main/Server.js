@@ -1,6 +1,7 @@
 (function () {
 	'use strict';
 	 var express = require('express');
+   var expressRequestId = require('express-request-id')();
 
 	function Server(logger) {
 		var server = {
@@ -14,7 +15,7 @@
 		/**
 		 * Construct the server and init express
 		 */
-		function _construct (logger) {
+		function _construct () {
 			logger.info('Initializing i8Server');
       var configLoader = require('./configLoader');
       server._config = configLoader(logger);
@@ -43,7 +44,24 @@
       server.use(bodyParser.urlencoded({
         extended: true
       }), 'bodyParser.urlencoded');
+
+      logger.info('Setup request');
+      server.use(expressRequestId, 'expressRequestId');
+      server.use('*', server._setupRequest);
     }
+
+    /**
+     * Puts logger and config in req.
+     */
+    server._setupRequest = function (req, res, next) {
+      logger.debug('Generating req.i8');
+      req.i8 = {
+        logger: logger.child({reqId: req.id}),
+        config: server._config
+      };
+      logger.debug('req.i8', req.i8);
+      next();
+    };
 
     /**
      * Add routes or add middleware

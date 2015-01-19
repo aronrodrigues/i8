@@ -25,6 +25,19 @@ The i8 server provides the following functions:
 * 404 handling
 * server.use(), server.static() and i8.createRouter()
 
+###req setup
+The server will create a req.i8 with logger and config.
+```javascript
+var i8 = require('../main/index.js');
+var logger = require('bunyan').createLogger({name: 'testApp'});
+var server = new i8.Server(logger);
+server.use('/', function (req, res, next) {
+  req.i8.logger.info('Showing config');
+  res.jsonp(req.i8.config);
+});
+server.startup();
+```
+
 ###env.json configuration
 Given an env.json file
 ```javascript

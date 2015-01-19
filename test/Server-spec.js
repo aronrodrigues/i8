@@ -30,6 +30,12 @@
 
       describe('simple call', function () {
         it('returns a initialized Server instance', function (done) {
+          var fs = require('fs');
+          sandbox.stub(fs, 'existsSync', function (filename) {
+            return false;
+          });
+          logger = mocks.logger();
+          server = new Server(logger);
           expect(server).to.be.not.null;
           expect(server._app).to.be.not.null;
           expect(server._config.httpPort).to.be.equals(80);
@@ -72,6 +78,7 @@
           done();
         });
       });
+
     });
 
     describe('server.use()', function () {
@@ -163,6 +170,12 @@
 
       describe('url, path', function (done) {
         it('calls server.use', function (done) {
+          var fs = require('fs');
+          sandbox.stub(fs, 'existsSync', function (filename) {
+            return false;
+          });
+          logger = mocks.logger();
+          server = new Server(logger);
           var config = server.getConfig();
           expect(config.httpPort).to.be.equals(80);
           expect(config.httpsPort).to.be.equals(-1);
@@ -451,7 +464,32 @@
         });
       });
 
-    })
+    });
+
+    describe('server._setupRequest()', function () {
+      var req, res, next = null;
+
+      beforeEach(function () {
+        req = mocks.req();
+        res = mocks.res();
+        next = sinon.spy();
+      });
+
+      describe('simple call', function (done) {
+        it('call logger.child with req.id and pass the logger and config to req.i8', function (done) {
+          req.id = 'testId';
+          server._setupRequest(req, res, next);
+          expect(req.i8).to.be.defined;
+          expect(req.i8.config).to.be.equals(server._config);
+          expect(req.i8.logger).to.be.equals(logger);
+          expect(logger.child.callCount).to.be.equals(2);
+          expect(logger.child.getCall(1).args[0].reqId).to.be.equals('testId');
+          done();
+        });
+      });
+
+    });
+
 
   });
 

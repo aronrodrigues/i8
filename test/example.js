@@ -26,17 +26,21 @@ var handler = {
         '<li><a href="router/hello">router/hello</a></li>' +
         '<li><a href="error">error</a></li>' +
         '<li><a href="api/error">api/error</a></li>' +
-        '</ul>');
+        '</ul>' +
+        '<p>req.id: ' + req.id + '</p>' + 
+        '<p>req.i8.config: ' + JSON.stringify(req.i8.config) + '</p>'
+        '<p>req.i8.logger: ' + req.i8.logger + '</p>' +
+        );
     }
   }, {
     path: '/api/data',
     action: function (req, res, next) {
-      i8.jsonResult(res, next)(null, {testData: 'Hello World'});
+      i8.jsonResult(req, res, next)(null, {testData: 'Hello World'});
     }
   }, {
     path: '/api/noData',
     action: function (req, res, next) {
-      i8.jsonResult(res, next)(null);
+      i8.jsonResult(req, res, next)(null);
     }
   }, {
     path: '/error',
