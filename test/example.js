@@ -28,8 +28,8 @@ var handler = {
         '<li><a href="api/error">api/error</a></li>' +
         '</ul>' +
         '<p>req.id: ' + req.id + '</p>' + 
-        '<p>req.i8.config: ' + JSON.stringify(req.i8.config) + '</p>'
-        '<p>req.i8.logger: ' + req.i8.logger + '</p>' +
+        '<p>req.i8.config: ' + JSON.stringify(req.i8.config) + '</p>' +
+        '<p>req.i8.logger: ' + req.i8.logger + '</p>'
         );
     }
   }, {
