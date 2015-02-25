@@ -2,7 +2,7 @@
   "name": "i8",
   "description": "Basic express wrapper. More than express, it's a freeway. It's a tribute to San Diego, CA",
   "author": "Aron Rodrigues <aronrodrigues@gmail.com>",
-  "version": "1.6.0",
+  "version": "1.6.1",
   "public": true,
   "main": "main/index.js",
   "scripts": {
