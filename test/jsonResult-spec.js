@@ -52,6 +52,19 @@
       })
     });
 
+    describe('bug #17, #18 call with empty array', function () {
+      it('returns calls res.status(204).jsonp()', function (done) {
+        jsonResult(req, res, next)(null, []);
+        expect(res.status.calledOnce).to.be.true;
+        expect(res.status.getCall(0).args[0]).to.be.equals(204);
+        expect(req.i8.logger.debug.calledOnce).to.be.true;
+        expect(req.i8.logger.debug.getCall(0).args[0]).to.be.equals('noDataFound');
+        expect(res.jsonp.calledOnce).to.be.true;
+        expect(res.jsonp.getCall(0).args[0]).to.be.undefined;
+        done();
+      })
+    });
+
     describe('simple call with error', function () {
       it('returns calls next(err)', function (done) {
       	jsonResult(req, res, next)(new Error('testError'), null);

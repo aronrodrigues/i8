@@ -9,7 +9,7 @@
 		return function(err, data) {
 			var logger = req.i8.logger;
 			if (!err) {
-				if (data) {
+				if (data && (!(data instanceof Array) || data.length > 0)) { 
 					logger.debug({data: data}, 'dataFound');
 					return res.status(200).jsonp(data);
 				} else {
