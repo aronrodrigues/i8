@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-	console.log('##### DEPRECATED #####');
+
 	var express = require('express');
 	var methods = 'get post delete put all'.split(' ');
 
@@ -8,7 +8,7 @@
 	 * Transforms a handler object into an express router.
 	 */
 	function handlerToRouter(handler, logger) {
-		
+		console.log('##### handlerToRouter is DEPRECATED #####');
 		var router = express.Router();
 		function addRoute(route) {
 			if (route.before) {
