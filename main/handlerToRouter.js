@@ -1,6 +1,6 @@
 (function () {
 	'use strict';
-
+	console.log('##### DEPRECATED #####');
 	var express = require('express');
 	var methods = 'get post delete put all'.split(' ');
 

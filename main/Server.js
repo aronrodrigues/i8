@@ -56,7 +56,7 @@
     server._setupRequest = function (req, res, next) {
       logger.debug('Generating req.i8');
       req.i8 = {
-        logger: logger.child({reqId: req.id}),
+        logger: logger.child({reqId: req.id, url: req.originalUrl}),
         config: server._config
       };
       logger.debug('req.i8', req.i8);

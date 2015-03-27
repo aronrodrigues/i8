@@ -80,18 +80,13 @@ If the url starts with /api it will return an object with the error message {mes
 var i8 = require('i8');
 var logger = require('bunyan').createLogger({ name: 'serverTest'});
 var server = i8.Server(logger);
-        
-var handler = {
-  get: [{
-    path: '/', action: function (req, res, next) {
-      res.send('<ul>'+ 
-           '<li><a href="error">error</a></li>' +
-           '<li><a href="api/error">api/error</a></li>' +
-           '</ul>');
-    }
-  }]
-}
-server.use(i8.handleToRouter(handler), 'TestRouter');
+var router = i8.createRouter();
+router.get('/', function (req, res, next) {
+  res.send('<ul>'+ 
+       '<li><a href="error">error</a></li>' +
+       '<li><a href="api/error">api/error</a></li>' +
+       '</ul>');
+});
 
 server.registerErrorCallback(function(err, req, res, next) {
   res.send('The error ' + err.message + ' ocurred and your request cannot be completed.');
@@ -195,17 +190,3 @@ Returns a function handle(err, data)
 ## i8.createRouter()
 Returns an express router.
 
-## handlerToRouter
-Transforms a handler object into an express router.
-```javascript
-var handler = {
-  get: [{  // METHOD
-    path: '/', action: function (req, res, next) {
-      res.send('Hello World');
-    }
-  }]
-}
-```
-
-### handler.getRoute = function (method, path) {
-Returns the function (improve testability)
